@@ -1,37 +1,51 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package reservation.entity;
 
 import java.io.Serializable;
-import javax.persistence.Column;
+import java.util.Date;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
  * @author formation
  */
 @Entity
-@Table(name="romm")
-public class Chambre implements Serializable {
+public class Rservation implements Serializable {
+    
+    
+    public enum Etatreservation{
+        
+        NON_VALIDE,
+        VALIDE,
+        TERMINE,
+        ANULE
+    }
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
-     @Column(nullable = false,length = 32)
-     private String nom; 
+    @Temporal(TemporalType.DATE)
+    private Date datedebut;
+    @Temporal(TemporalType.DATE)
+    private Date datefin;
+    @Temporal(TemporalType.DATE)
+    private Date dateheurereservation;
+    @Enumerated(EnumType.STRING)
+    private Etatreservation etat;
     
-    @Column(length = 1485)
-    private String description;
-    @Column(nullable = false,name = "KAPLANPRICE")
-    private Double prix;
-   
-   
-   
 
     public Long getId() {
         return id;
@@ -39,10 +53,6 @@ public class Chambre implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-    
-     public Long getid() {
-        return id;
     }
 
     @Override
@@ -55,10 +65,10 @@ public class Chambre implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Chambre)) {
+        if (!(object instanceof Rservation)) {
             return false;
         }
-        Chambre other = (Chambre) object;
+        Rservation other = (Rservation) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -67,10 +77,7 @@ public class Chambre implements Serializable {
 
     @Override
     public String toString() {
-        return "reservation.entity.Chambre[ id=" + id + " ]";
+        return "reservation.entity.Rservation[ id=" + id + " ]";
     }
     
 }
-
-
-
