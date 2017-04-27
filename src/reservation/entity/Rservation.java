@@ -7,12 +7,16 @@ package reservation.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -37,6 +41,8 @@ public class Rservation implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
+   
+    
     @Temporal(TemporalType.DATE)
     private Date datedebut;
     @Temporal(TemporalType.DATE)
@@ -45,6 +51,14 @@ public class Rservation implements Serializable {
     private Date dateheurereservation;
     @Enumerated(EnumType.STRING)
     private Etatreservation etat;
+    
+    @ManyToOne
+    @JoinColumn(name="reservation_id")
+    private Client client;
+    
+    @ManyToOne
+    @JoinColumn(name = "cambre_id")
+    private Chambre chambre;
     
 
     public Long getId() {
@@ -79,5 +93,40 @@ public class Rservation implements Serializable {
     public String toString() {
         return "reservation.entity.Rservation[ id=" + id + " ]";
     }
+
+    public Date getDatedebut() {
+        return datedebut;
+    }
+
+    public void setDatedebut(Date datedebut) {
+        this.datedebut = datedebut;
+    }
+
+    public Date getDatefin() {
+        return datefin;
+    }
+
+    public void setDatefin(Date datefin) {
+        this.datefin = datefin;
+    }
+
+    public Date getDateheurereservation() {
+        return dateheurereservation;
+    }
+
+    public void setDateheurereservation(Date dateheurereservation) {
+        this.dateheurereservation = dateheurereservation;
+    }
+
+    public Etatreservation getEtat() {
+        return etat;
+    }
+
+    public void setEtat(Etatreservation etat) {
+        this.etat = etat;
+    }
+
+    
+    
     
 }

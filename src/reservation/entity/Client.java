@@ -6,13 +6,15 @@
 package reservation.entity;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
-import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -33,6 +35,9 @@ public class Client implements Serializable {
     private int age;
     @Embedded
     private Adresse adr;
+    
+    @OneToMany(mappedBy = "client")
+    private  Set<Rservation> reservations = new HashSet<>();
     
     
 
@@ -68,5 +73,41 @@ public class Client implements Serializable {
     public String toString() {
         return "reservation.entity.Client[ id=" + id + " ]";
     }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public String getPrenom() {
+        return prenom;
+    }
+
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public Adresse getAdr() {
+        return adr;
+    }
+
+    public void setAdr(Adresse adr) {
+        this.adr = adr;
+    }
+
+   
+    
+    
     
 }
